@@ -19,7 +19,7 @@ Node *addNode(int data){
     return newNode;
 }
 
-//FUNGSI INSERT DATA SECARA BST
+//FUNGSI INSERT DATA SECARA REKURSIF
 Node *insertData(Node *anode, int data){
     if(anode == NULL){
         return addNode(data);
@@ -33,6 +33,7 @@ Node *insertData(Node *anode, int data){
     return anode;
 }
 
+//FUNGSI INSERT DATA TANPA REKURSIF
 Node *insert(Node *anode, int data){
     Node *b, *p, *q;
     b = addNode(data);
@@ -60,6 +61,7 @@ Node *insert(Node *anode, int data){
    return anode;     
 }
 
+//FUNGSI MENCARI NODE DENGAN NILAI TERBESAR
 Node *findMax(Node *anode){
     if(anode->right != NULL){
         return findMax(anode->right);
@@ -67,6 +69,7 @@ Node *findMax(Node *anode){
     return anode;
 }
 
+//FUNGSI MENCARI NODE DENGAN NILAI TERBESAR KEDUA
 Node *findMaxSecond(Node *anode){
     Node *maxNode = anode;
     Node *parent;
@@ -80,36 +83,31 @@ Node *findMaxSecond(Node *anode){
     return anode;
 }
 
+//FUNGSI MENHAPUS NODE DENGAN NILAI TERTENTU
 Node* deleteNode(Node *root, int data) {
 	if(root == NULL)
         return root; 
 	else if(data < root->data){
-        cout << "1" << endl;
         root->left = deleteNode(root->left,data);
     }
 	else if (data > root->data){
-        cout << "2" << endl;
         root->right = deleteNode(root->right,data);	
     }
 	else {
-		if(root->left == NULL && root->right == NULL) { 
-            cout << "3" << endl;
+		if(root->left == NULL && root->right == NULL) {
 			delete root;
 			root = NULL;
 		} 
 		else if(root->left == NULL) {
-            cout << "4" << endl;
 			Node *temp = root;
 			root = root->right;
 			delete temp;
 		}
 		else if(root->right == NULL) {
-            cout << "5" << endl;
 			Node *temp = root;
 			root = root->left;
 			delete temp;
 		} else { 
-            cout << "6" << endl;
 			Node *temp = findMax(root->left);
 			root->data = temp->data;
 			root->left = deleteNode(root->left, temp->data);
@@ -118,6 +116,7 @@ Node* deleteNode(Node *root, int data) {
 	return root;
 }
 
+//FUNGSI MENHAPUS ROOT NODE
 void deleteRoot(Node *anode){
     Node *temp;
     Node *q;
@@ -159,6 +158,7 @@ void deleteRoot(Node *anode){
     }
 }
 
+//FUNGSI CETAK DATA SECARA INORDER
 void inOrder(Node *anode){
     if(anode != NULL){
         inOrder(anode->left);
@@ -167,6 +167,7 @@ void inOrder(Node *anode){
     }
 }
 
+//FUNGSI CETAK DATA SECARA PREORDER
 void preOrder(Node *anode){
     if(anode != NULL){
         cout << anode->data << " ";
@@ -175,6 +176,7 @@ void preOrder(Node *anode){
     }
 }
 
+//FUNGSI CETAK DATA SECARA POSTORDER
 void postOrder(Node *anode){
     if(anode != NULL){
         preOrder(anode->left);
@@ -183,6 +185,7 @@ void postOrder(Node *anode){
     }
 }
 
+//FUNGSI CETAK DATA SECARA LEVELORDER
 void levelOrder(Node *node){
     if(node != NULL){
         cout << node->data << " ";
@@ -198,31 +201,18 @@ void levelOrder(Node *node){
 }
 
 int main() {
-	int arr[] = {25, 73, 41, 30, 58, 64, 98, 13, 87, 91, 17, 76, 28, 45, 56}; 
-	//int arr[] = {20, 10, 5, 15, 30, 25, 35}; 
+    //DATA INTEGER YANG AKAN DIMASUKAN DALAM BST
+	int arr[] = {25, 73, 41, 30, 58, 64, 98, 13, 87, 91, 17, 76, 28, 45, 56};
 	int n = sizeof(arr)/sizeof(arr[0]);
 
+    //DEKLARASI ROOT
     Node *tree = NULL;
+
+    //PROSES INSERT DATA DALAM TREE
     for(int i=0; i<n; i++){
         tree = insertData(tree, arr[i]);
     }
-    cout << "BST : ";
-    inOrder(tree);
-    cout << endl;
-
-    //int maxSecond = findMaxSecond(tree)->data;
-    //Node *maxSecond = findMaxSecond(tree);
-    //deleteRoot(tree->right->left->left->left);
-    //tree = deleteNode(tree, 73);
-    //cout << "BST : ";
-    //inOrder(tree);
-    Node *del = tree->right->right->left->right;
-    Node *p = tree->right->right->left;
-    cout << endl << "del data : " << del->data << endl;
-    delete del;
-    p->right = NULL;
-    //tree->right->right->left->right = NULL;
-    //del = NULL;
+    
     cout << "BST : ";
     inOrder(tree);
     cout << endl;

@@ -2,10 +2,10 @@
 #include <conio.h>
 using namespace std;
 
-#define NUM_OF_INDEX 25
+#define NUM_OF_INDEX 20
 
 struct Node { 
-	int data; 
+	int data;
 	Node *left, *right;
 };
 
@@ -92,7 +92,7 @@ int main(){
     HashMap hashMap;
     Node *database[NUM_OF_INDEX] = {NULL};
 
-    for(int i=0; i<50; i++){
+    for(int i=0; i<20; i++){
         int data = (rand() % 100) + 1;
         hashMap.hashing(data, database);
     }
