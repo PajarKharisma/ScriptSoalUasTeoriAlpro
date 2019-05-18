@@ -18,11 +18,6 @@ class HeapTree{
         void getChildIndex(int parent, int *arr){
             int left = (parent * 2) + 1;
             int right = (parent * 2) + 2;
-
-            cout << "Left child index : " + left << endl;
-            cout << "Left child data : " + arr[left] << endl;
-            cout << "Right child index : " + right << endl;
-            cout << "Right child data : " + arr[right] << endl;
         }
 
         void insert(int data){

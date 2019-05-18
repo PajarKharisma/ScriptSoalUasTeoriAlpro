@@ -1,4 +1,5 @@
 #include <iostream>
+#include <math.h>
 #include <vector>
 using namespace std;
 
@@ -6,8 +7,6 @@ using namespace std;
 
 class HashMap{
     private:
-        vector<int> temp;
-
         int getBigestPrime(int val){
             bool isPrime = false;
             int bigestPrime = -1;
@@ -34,36 +33,31 @@ class HashMap{
             if(database[index] == 0){
                 database[index] = data;
             }else{
-                temp.push_back(data);
-            }
-        }
-
-        void linerProbing(int database[]){
-            for(int data:temp){
-                int p = getBigestPrime(NUM_OF_INDEX);
-                int index = data % p;
-                while(database[index] != 0){
-                    index++;
-                    index = index % NUM_OF_INDEX;
+                int i = 1;
+                int newPos = index;
+                while(database[newPos] != 0){
+                    int quadratic = pow(i, 2);
+                    newPos = (index + quadratic) % NUM_OF_INDEX;
+                    i++;
                 }
-                database[index] = data;
+                database[newPos] = data;
             }
         }
-
-        
 };
 
 int main(){
     HashMap hashMap;
     int database[NUM_OF_INDEX] = {0};
+    int n = (NUM_OF_INDEX) - (NUM_OF_INDEX/4);
 
-    for(int i=0; i<NUM_OF_INDEX; i++){
-        int val = (rand() % 50) + 1;
-        cout << val << " ";
+    for(int i=0; i<n; i++){
+        int val = (rand() % (NUM_OF_INDEX * 3)) + 1;
+        //cout << val << " ";
         hashMap.hashing(database, val);
     }
+
     cout << endl;
-    hashMap.linerProbing(database);
+
     for(int i=0; i<NUM_OF_INDEX; i++){
         cout << "[" << i << "] : " << database[i] << endl;
     }
