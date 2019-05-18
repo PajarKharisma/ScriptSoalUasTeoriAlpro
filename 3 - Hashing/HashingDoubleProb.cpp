@@ -3,7 +3,7 @@
 #include <vector>
 using namespace std;
 
-#define NUM_OF_INDEX 20
+#define NUM_OF_INDEX 30
 
 class HashMap{
     private:
@@ -26,6 +26,11 @@ class HashMap{
             return bigestPrime;
         }
 
+        int hash2(int data){
+            int p = getBigestPrime(NUM_OF_INDEX);
+            return p - (data % p);
+        }
+
     public:
         void hashing(int database[], int data){
             int p = getBigestPrime(NUM_OF_INDEX);
@@ -33,13 +38,12 @@ class HashMap{
             if(database[index] == 0){
                 database[index] = data;
             }else{
-                int i = 1;
+                int i=1;
                 int newPos = index;
                 while(database[newPos] != 0){
-                    int quadratic = pow(i, 2);
-                    newPos = (index + quadratic) % NUM_OF_INDEX;
+                    newPos = (index + (i * hash2(data))) % NUM_OF_INDEX;
                     i++;
-                }
+                }   
                 database[newPos] = data;
             }
         }
@@ -51,9 +55,12 @@ int main(){
     int n = NUM_OF_INDEX / 2;
 
     for(int i=0; i<n; i++){
-        int val = (rand() % (NUM_OF_INDEX * 2)) + 1;
+        int val = (rand() % (NUM_OF_INDEX * 3)) + 1;
+        //cout << val << " ";
         hashMap.hashing(database, val);
     }
+
+    cout << endl;
 
     for(int i=0; i<NUM_OF_INDEX; i++){
         cout << "[" << i << "] : " << database[i] << endl;
