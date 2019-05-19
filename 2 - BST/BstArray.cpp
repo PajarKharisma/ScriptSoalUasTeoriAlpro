@@ -54,12 +54,30 @@ int findMax(Tree tree){
     return tree[index];
 }
 
+int findMax(Tree tree, int index){
+    int newIndex = (2*index)+2;
+    if(tree[newIndex] != 0){
+        findMax(tree, newIndex);
+    }else{
+        return tree[index];
+    }
+}
+
 int findMin(Tree tree){
     int index = 0;
     while (tree[(2*index)+1] != 0){
         index = (2*index)+1;
     }
     return tree[index];
+}
+
+int findMin(Tree tree, int index){
+    int newIndex = (2*index)+1;
+    if(tree[newIndex] != 0){
+        findMin(tree, newIndex);
+    }else{
+        return tree[index];
+    }
 }
 
 int main(){
@@ -70,7 +88,7 @@ int main(){
     for(int i=0; i<n; i++){
         insertData(tree, arr[i], 0);
     }
-    cout << "Maximum element is : " << findMax(tree) << endl;
-    cout << "Minimum element is : " << findMin(tree) << endl;
+    cout << "Maximum element is : " << findMax(tree, 0) << endl;
+    cout << "Minimum element is : " << findMin(tree, 0) << endl;
     //levelOrder(tree);
 }
