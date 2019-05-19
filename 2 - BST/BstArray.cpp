@@ -4,6 +4,7 @@ using namespace std;
 typedef int Tree[500000];
 int maxIndex = 0;
 
+//FUNGSI INSERT DATA DALAM TREE
 void insertData(Tree tree, int data, int index){
     if(tree[index] == 0){
         tree[index] = data;
@@ -14,6 +15,7 @@ void insertData(Tree tree, int data, int index){
     }
 }
 
+//FUNGSI CETAK DATA SECARA PREORDER
 void preOrder(Tree tree, int index){
     if(tree[index] != 0){
         cout << tree[index] << " ";
@@ -22,6 +24,7 @@ void preOrder(Tree tree, int index){
     }
 }
 
+//FUNGSI CETAK DATA SECARA INORDER
 void inOrder(Tree tree, int index){
     if(tree[index] != 0){
         preOrder(tree, (2*index)+1);
@@ -30,6 +33,7 @@ void inOrder(Tree tree, int index){
     }
 }
 
+//FUNGSI CETAK DATA SECARA POSTORDER
 void postOrder(Tree tree, int index){
     if(tree[index] != 0){
         preOrder(tree, (2*index)+1);
@@ -38,6 +42,7 @@ void postOrder(Tree tree, int index){
     }
 }
 
+//FUNGSI CETAK DATA SECARA LEVELORDER
 void levelOrder(Tree tree){
     for(int i=0; i<=maxIndex; i++){
         if(tree[i] != 0){
@@ -46,6 +51,7 @@ void levelOrder(Tree tree){
     }
 }
 
+//FUNGSI MENCARI NILAI TERBESAR PADA BST TANPA REKURSIF
 int findMax(Tree tree){
     int index = 0;
     while(tree[(2*index)+2] != 0){
@@ -54,6 +60,7 @@ int findMax(Tree tree){
     return tree[index];
 }
 
+//FUNGSI MENCARI NILAI TERBESAR PADA BST DENGAN REKURSIF
 int findMax(Tree tree, int index){
     int newIndex = (2*index)+2;
     if(tree[newIndex] != 0){
@@ -63,6 +70,7 @@ int findMax(Tree tree, int index){
     }
 }
 
+//FUNGSI MENCARI NILAI TERKECIL PADA BST TANPA REKURSIF
 int findMin(Tree tree){
     int index = 0;
     while (tree[(2*index)+1] != 0){
@@ -71,6 +79,7 @@ int findMin(Tree tree){
     return tree[index];
 }
 
+//FUNGSI MENCARI NILAI TERKECIL PADA BST DENGAN REKURSIF
 int findMin(Tree tree, int index){
     int newIndex = (2*index)+1;
     if(tree[newIndex] != 0){
