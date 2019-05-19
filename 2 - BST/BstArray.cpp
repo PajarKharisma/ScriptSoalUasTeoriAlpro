@@ -7,8 +7,7 @@ int maxIndex = 0;
 void insertData(Tree tree, int data, int index){
     if(tree[index] == 0){
         tree[index] = data;
-        if(index > maxIndex)
-            maxIndex = index;
+        maxIndex = max(index, maxIndex);
     }else{
         int newIndex = (data < tree[index]) ? (2*index)+1 : (2*index)+2;
         insertData(tree, data, newIndex);
@@ -55,6 +54,14 @@ int findMax(Tree tree){
     return tree[index];
 }
 
+int findMin(Tree tree){
+    int index = 0;
+    while (tree[(2*index)+1] != 0){
+        index = (2*index)+1;
+    }
+    return tree[index];
+}
+
 int main(){
     Tree tree = {0};
     int arr[] = {25, 73, 41, 30, 58, 64, 98, 13, 87, 91, 17, 76, 28, 45, 56};
@@ -63,6 +70,7 @@ int main(){
     for(int i=0; i<n; i++){
         insertData(tree, arr[i], 0);
     }
-    cout << "Maximum element is : " << findMax(tree);
+    cout << "Maximum element is : " << findMax(tree) << endl;
+    cout << "Minimum element is : " << findMin(tree) << endl;
     //levelOrder(tree);
 }
