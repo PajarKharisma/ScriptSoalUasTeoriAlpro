@@ -4,8 +4,10 @@
 #include <ctime>
 using namespace std; 
 
+//CLASS MERGE SORT
 class MergeSort{
     private:
+        //PROSES MENGGABUNGKAN DATA ARRRAY DAN MENGURUTKANNYA
         void merge(int *arr, int l, int m, int r){
             int i, j, k; 
             int n1 = m - l + 1; 
@@ -51,6 +53,7 @@ class MergeSort{
         }
 
     public: 
+        //PROSES MEMBAGI ARRAY
         void mergeSort(int *arr, int l, int r){ 
             if (l < r){ 
                 int m = l+(r-l)/2; 
@@ -63,28 +66,30 @@ class MergeSort{
 
 class QuickSort{
     private:
-        int partition (int *arr, int low, int high){ 
-            int pivot = low;
-            int i = low;
-            int j = high;
-            while(j > i){
-                if (arr[j] <= arr[pivot]){ 
-                    i++;
-                    swap(arr[i], arr[j]); 
+        int partisi(int *data, int low, int high){
+            int i, j, t, pivot;
+            pivot = data[low];
+            j = low;
+            for (i=low+1; i<=high; i++){
+                if (data[i] < pivot){
+                    j++;
+                    t = data[i];
+                    data[i] = data[j];
+                    data[j] = t;
                 }
-                j--;
             }
-            swap(arr[i], arr[pivot]);
-            return i; 
+            data[low] = data[j];
+            data[j] = pivot;
+            return j;
         }
 
     public:
-        void quickSort(int *arr, int low, int high){ 
+        void quickSort(int *data, int low, int high){
             if (low < high){
-                int pi = partition(arr, low, high);
-                quickSort(arr, low, pi - 1); 
-                quickSort(arr, pi + 1, high); 
-            } 
+                int pi = partisi(data, low, high);
+                quickSort(data, low, pi-1);
+                quickSort(data, pi+1, high);
+            }
         }
 };
 
@@ -116,7 +121,72 @@ class HeapSort{
                 swap(arr[0], arr[i]);
                 heapify(arr, i, 0); 
             } 
+        }
+};
+
+class RadixSort{
+    private:
+        int getMax(int *arr, int n){ 
+            int mx = arr[0]; 
+            for (int i = 1; i < n; i++) 
+                if (arr[i] > mx) 
+                    mx = arr[i]; 
+            return mx; 
         } 
+
+        void countSort(int *arr, int n, int exp){ 
+            int output[n]; // output array 
+            int i, count[10] = {0}; 
+        
+            for (i = 0; i < n; i++) 
+                count[ (arr[i]/exp)%10 ]++; 
+        
+            for (i = 1; i < 10; i++) 
+                count[i] += count[i - 1]; 
+        
+            for (i = n - 1; i >= 0; i--){ 
+                output[count[ (arr[i]/exp)%10 ] - 1] = arr[i]; 
+                count[ (arr[i]/exp)%10 ]--; 
+            }
+
+            for (i = 0; i < n; i++) 
+                arr[i] = output[i]; 
+        } 
+
+    public:
+        void radixsort(int *arr, int n){
+            int m = getMax(arr, n);
+            for (int exp = 1; m/exp > 0; exp *= 10) 
+                countSort(arr, n, exp); 
+            }
+};
+
+class BubbleSort{
+    public:
+        void bubble(int *data, int n){
+            for(int i=0; i<n; i++){
+                for(int j=0; j<n-1; j++){
+                    if(data[j] > data[j+1]){
+                        swap(data[j],data[j+1]);
+                    }
+                }
+            }
+        }
+};
+
+class SelectionSort{
+    public:
+        void selectionSort(int *data, int n){
+            for(int i=0; i<n; i++){
+                int minIndex = i;
+                for(int j=i+1; j<n; j++){
+                    if(data[j] < data[minIndex]){
+                        minIndex = j;
+                    }
+                }
+                swap(data[i], data[minIndex]);
+            }
+        }
 };
 
 void printArray(int arr[], int n, string title){
@@ -130,49 +200,26 @@ int main() {
     HeapSort hs;
     MergeSort ms;
     QuickSort qs;
+    RadixSort rs;
+    BubbleSort bs;
+    SelectionSort ss;
 
     int n;
-    int *dataHeap;
-    int *dataMerge;
-    int *dataQuick;
+    int *data;
+
 
     cout << "Input banyak data : ";
     cin >>  n;
-    dataHeap = new int[n];
-    dataMerge = new int[n];
-    dataQuick = new int[n];
+    data = new int[n];
 
+    //int arr[] = {71, 70, 98, 25, 35, 73, 27, 8, 84, 20, 12, 28};
     for(int i=0; i<n; i++){
-        int val = rand()*rand()+1;
-        //int val = (rand()%100)+1;
-        dataHeap[i] = val;
-        dataMerge[i] = val;
-        dataQuick[i] = val;
+        int val = (rand()%100)+1;
+        data[i] = val;
     }
 
-    double duration = 0;
-    clock_t startQuick = clock();
-    qs.quickSort(dataQuick, 0, n-1);
-    duration = (clock() - startQuick) / (double)CLOCKS_PER_SEC;
-    cout << "Waktu Quick Sort : " << duration << " second" << endl;
-    delete dataQuick;
-    dataQuick = NULL;
-
-    duration = 0;
-    clock_t startMerge = clock();
-    ms.mergeSort(dataMerge, 0, n-1);
-    duration = (clock() - startMerge) / (double)CLOCKS_PER_SEC;
-    cout << "Waktu Merge Sort : " << duration << " second" << endl;
-    delete dataMerge;
-    dataMerge = NULL;
-
-    duration = 0;
-    clock_t startHeap = clock();
-	hs.heapSort(dataHeap, n);
-    duration = (clock() - startHeap) / (double)CLOCKS_PER_SEC;
-    cout << "Waktu Heap Sort : " << duration << " second" << endl;
-    delete dataHeap;
-    dataHeap = NULL;
+    ss.selectionSort(data, n);
+    printArray(data, n, "quick : ");
 
     getch(); //delete this line if you use linux
 } 
