@@ -74,6 +74,7 @@ class QuickSort{
             int pivot = data[low];
             int i = low;
             for (int j=low+1; j<=high; j++){
+                counter++;
                 if (data[j] < pivot){
                     i++;
                     swap(data[i], data[j]);
@@ -166,9 +167,10 @@ class RadixSort{
 
 class BubbleSort{
     public:
-        void bubble(int *data, int n){
+        void bubbleSort(int *data, int n){
             for(int i=0; i<n; i++){
                 for(int j=0; j<n-1; j++){
+                    counter++;
                     if(data[j] > data[j+1]){
                         swap(data[j],data[j+1]);
                     }
@@ -221,8 +223,9 @@ int main() {
         data[i] = val;
     }
 
-    ms.mergeSort(data, 0, n-1);
-    //qs.quickSort(data, 0, n-1);
+    //ms.mergeSort(data, 0, n-1);
+    qs.quickSort(data, 0, n-1);
+    //bs.bubbleSort(data, n);
     printArray(data, n, "Hasil : ");
     cout << "Jumlah Perbandingan : " << counter << endl;
 
