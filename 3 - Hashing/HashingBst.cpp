@@ -4,6 +4,7 @@ using namespace std;
 
 #define NUM_OF_INDEX 20
 
+//STRUCK SETIAP NODE PADA TREE
 struct Node { 
 	int data;
 	Node *left, *right;
