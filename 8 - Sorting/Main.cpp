@@ -68,20 +68,17 @@ class QuickSort{
     private:
         //PROSES MEMPARTISI ARRAY BERDASARKAN PIVOT, PIVOT DIAMBIL DARI ELEMEN PERTAMA
         int partisi(int *data, int low, int high){
-            int i, j, t, pivot;
-            pivot = data[low];
-            j = low;
-            for (i=low+1; i<=high; i++){
-                if (data[i] < pivot){
-                    j++;
-                    t = data[i];
-                    data[i] = data[j];
-                    data[j] = t;
+            int pivot = data[low];
+            int i = low;
+            for (int j=low+1; j<=high; j++){
+                if (data[j] < pivot){
+                    i++;
+                    swap(data[i], data[j]);
                 }
             }
-            data[low] = data[j];
-            data[j] = pivot;
-            return j;
+            data[low] = data[i];
+            data[i] = pivot;
+            return i;
         }
 
     public:
@@ -221,7 +218,7 @@ int main() {
         data[i] = val;
     }
 
-    ss.selectionSort(data, n);
+    qs.quickSort(data, 0, n-1);
     printArray(data, n, "quick : ");
 
     getch(); //delete this line if you use linux
