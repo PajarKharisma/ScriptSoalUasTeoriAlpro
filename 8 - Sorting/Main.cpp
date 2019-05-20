@@ -71,17 +71,16 @@ class QuickSort{
     private:
         //PROSES MEMPARTISI ARRAY BERDASARKAN PIVOT, PIVOT DIAMBIL DARI ELEMEN PERTAMA
         int partisi(int *data, int low, int high){
-            int pivot = data[low];
+            int pivot = low;
             int i = low;
             for (int j=low+1; j<=high; j++){
                 counter++;
-                if (data[j] < pivot){
+                if (data[j] < data[pivot]){
                     i++;
                     swap(data[i], data[j]);
                 }
             }
-            data[low] = data[i];
-            data[i] = pivot;
+            swap(data[pivot], data[i]);
             return i;
         }
 
