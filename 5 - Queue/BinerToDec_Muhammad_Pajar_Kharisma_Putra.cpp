@@ -3,6 +3,7 @@
 #include <math.h>
 using namespace std;
 
+//STRUKTUR NODE UNTUK SETIAP ELEMENT PADA QUEUE
 struct Node{
     int data;
     Node *next;
@@ -15,14 +16,17 @@ struct Queue{
         Node *tail;
 
     public:
+        //FUNGSI UNTUK MENDEKLARASIKAN LIST = NULL ATAU MENGOSONGKAN / MERESET SEMUA ISI LIST
         void init(){
             this->list = NULL;
         }
 
+        //FUNGSI UNTUK MENDAPATKAN DATA LIST
         Node *getList(){
             return this->list;
         }
 
+        //FUNGSI MEMASUKAN DATA DALAM QUEUE
         void enQueue(int data){
             Node *newNode = new Node;
             newNode->data = data;
@@ -36,6 +40,7 @@ struct Queue{
             }
         }
 
+        //FUNGSI MENGELUARKAN DATA DARI QUEUE
         int deQueue(){
             int data = this->list->data;
             Node *delNode = this->list;
@@ -53,6 +58,7 @@ struct Queue{
             }
         }
 
+        //FUNGSI MEMERIKSA QUEUE KOSONG ATAU TIDAK
         bool isEmpty(){
             if(getList() == NULL)
                 return true;

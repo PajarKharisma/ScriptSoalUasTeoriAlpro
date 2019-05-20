@@ -7,6 +7,7 @@ using namespace std;
 
 class HashMap{
     private:
+        //FUNGSI MENCARI NILAI PRIMA TERKECIL KURANG DARI N
         int getBigestPrime(int val){
             bool isPrime = false;
             int bigestPrime = -1;
@@ -27,12 +28,15 @@ class HashMap{
         }
 
     public:
+        //FUNGSI MEMASUKAN DATA KE DALAM HASH TABLE
         void hashing(int database[], int data){
             int p = getBigestPrime(NUM_OF_INDEX);
             int index = data % p;
+            //JIKA INDEX HASH TABLE KOSONG, DATA AKAN LANGSUNG DIINSERT
             if(database[index] == 0){
                 database[index] = data;
             }else{
+                //JIKA TIDAK, AKAN DICARIKAN INDEX LAIN DENGAN ATURAN QUADRATIC
                 int i = 1;
                 int newPos = index;
                 while(database[newPos] != 0){

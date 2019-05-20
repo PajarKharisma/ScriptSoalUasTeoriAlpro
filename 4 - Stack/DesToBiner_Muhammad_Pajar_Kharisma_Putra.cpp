@@ -2,22 +2,27 @@
 #include <conio.h>
 using namespace std;
 
+//STRUKTUR NODE UNTUK SETIAP ELEMENT PADA STACK
 struct Node{
     int data;
     Node *next;
 };
 
+//STURKTUR STACK
 struct Stack{
     Node *list;
     
+    //FUNGSI UNTUK MENDEKLARASIKAN LIST = NULL ATAU MENGOSONGKAN / MERESET SEMUA ISI LIST
     void init(){
         list = NULL;
     }
 
+    //FUNGSI UNTUK MENDAPATKAN DATA LIST
     Node *getList(){
         return this->list;
     }
 
+    //FUNGSI MEMASUKAN DATA DALAM STACK
     void push(int data){
         Node *newNode = new Node;
         newNode->data = data;
@@ -25,6 +30,7 @@ struct Stack{
         this->list = newNode;
     }
 
+    //FUNGSI MENGELUARKAN DATA DARI STACK
     int pop(){
         Node *p = this->list;
         int data = p->data;
@@ -34,6 +40,7 @@ struct Stack{
         return data;
     }
 
+    //FUNGSI MEMERIKSA STUCK KOSONG ATAU TIDAK
     bool isEmpty(){
         if (this->list == NULL)
             return true;

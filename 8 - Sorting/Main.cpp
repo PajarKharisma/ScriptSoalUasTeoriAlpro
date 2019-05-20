@@ -66,6 +66,7 @@ class MergeSort{
 
 class QuickSort{
     private:
+        //PROSES MEMPARTISI ARRAY BERDASARKAN PIVOT, PIVOT DIAMBIL DARI ELEMEN PERTAMA
         int partisi(int *data, int low, int high){
             int i, j, t, pivot;
             pivot = data[low];
@@ -95,6 +96,7 @@ class QuickSort{
 
 class HeapSort{
     private:
+        //PROSES BUILD HEAP TREE BERDASARKAN DATA ARRAY
         void heapify(int *arr, int n, int i) { 
             int largest = i;
             int l = 2*i + 1;
@@ -113,6 +115,7 @@ class HeapSort{
         } 
 
     public:
+        //PROSES HEAPSORT DENGAN MENGAMBIL DATA ROOT
         void heapSort(int *arr, int n){
             for (int i = n / 2 - 1; i >= 0; i--) 
                 heapify(arr, n, i); 

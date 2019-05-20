@@ -2,6 +2,7 @@
 #include <conio.h>
 using namespace std;
 
+//JUMLAH INDEX HASH TABLE
 #define NUM_OF_INDEX 20
 
 struct Node{
@@ -9,15 +10,19 @@ struct Node{
     Node *next;
 };
 
+//CLASS CHAIN TEMPAT MENYIMPAN DATA MENGGUNAKAN ATURAN LINKED LIST
 class Chain{
     public:
+        //PROSES INSERT DATA
         Node *insertData(Node *anode, int data){
             Node *newNode = new Node;
             newNode->data = data;
             newNode->next = NULL;
+            //JIKA NODE == NULL DATA AKAN DIINSERT DI DEPAN
             if(anode == NULL){
                 return newNode;
             }else{
+                //JIKA TIDAK, DATA AKAN DIINSERT DI BELAKANG
                 Node *t = anode;
                 while(t->next != NULL){
                     t = t->next;
@@ -41,6 +46,7 @@ class HashMap{
     private:
         Chain chain;
 
+        //FUNGSI MENCARI NILAI PRIMA TERKECIL KURANG DARI N
         int getBigestPrime(int val){
             bool isPrime = false;
             int bigestPrime = -1;
@@ -61,6 +67,7 @@ class HashMap{
         }
 
     public:
+        //FUNGSI MEMASUKAN DATA KE DALAM TABLE HASH, JIKA INDEX SUDAH TERISI MAKA AKAN DI LINK DENGAN ATURAN LINKED LIST
         void hashing(int data, Node *database[]){
             int p = getBigestPrime(NUM_OF_INDEX);
             int index = data % p;

@@ -12,6 +12,7 @@ class AvlTree{
     private:
         Node *tree;
 
+        //FUNGSI MENAMBAHKAN ANAK BARU PADA AVL
         Node *addChild(int data){
             Node *newNode = new Node;
             newNode->data = data;
@@ -19,6 +20,7 @@ class AvlTree{
             return newNode;
         }
 
+        //FUNGSI UNTUK MEDAPATKAN TINGGI NODE
         int height(Node *anode){
             if(anode == NULL){
                 return -1;
@@ -37,6 +39,7 @@ class AvlTree{
             }
         }
 
+        //FUNGSI UNTUK MENDAPATKAN BALANCE FACTOR PADA NODE
         int balanceFactor(Node *anode){
             int lHeight = height(anode->left);
             int rHeight = height(anode->right);
@@ -44,6 +47,7 @@ class AvlTree{
             return lHeight - rHeight;
         }
 
+        //FUNGSI ROTASI KIRI
         Node *singleLeftRotation(Node *anode){
             Node *tmp = anode->right;
             anode->right = tmp->left;
@@ -51,6 +55,7 @@ class AvlTree{
             return tmp;
         }
 
+        //FUNGSI ROTASI KANAN
         Node *singleRightRotation(Node *anode){
             Node *tmp = anode->left;
             anode->left = tmp->right;
@@ -58,21 +63,26 @@ class AvlTree{
             return tmp;
         }
 
+        //FUNGSI ROTASI KIRI KANAN
         Node *rightLeftRotation(Node *anode){
             anode->right = singleRightRotation(anode->right);
             return singleLeftRotation(anode);
         }
 
+        //FUNGSI ROTASI KANAN KIRI
         Node *leftRightRotation(Node *anode){
             anode->left = singleLeftRotation(anode->left);
             return singleRightRotation(anode);
         }
 
     public:
+        //FUNGSI INSERT DATA
         Node *insertNode(Node *anode, int data){
+            //JIKA NODE KOSONG, DATA AKAN LANGUSNG DIINSERT
             if(anode == NULL)
                 return addChild(data);
 
+            //PROSES MENELUSURI NODE DENGAN ATURAN BST
             if(data < anode->data)
                 anode->left = insertNode(anode->left, data);
             else if(data > anode->data)
@@ -80,8 +90,10 @@ class AvlTree{
             else
                 return anode;
 
+            //PROSES MENDAPATKAN BALANCE FACTOR UNTUK MENENTUKAN POHON HARUS ROTASI ATAU TIDAK
             int bf = balanceFactor(anode);
 
+            //PROSES MENENTUKAN ROTASI BERDASARKAN NILAI DATA DAN BALANCE FACTOR
             if((bf > 1) && (data < anode->left->data)){
                 return singleRightRotation(anode);
             } else if ((bf < -1) && (data > anode->right->data)){

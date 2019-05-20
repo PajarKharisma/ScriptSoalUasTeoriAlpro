@@ -10,8 +10,10 @@ struct Node {
 	Node *left, *right;
 };
 
+//CLASS BINARY SEARCH TREE
 class BST{
     public:
+        //FUNGSI MENAMBAH NODE BARU
         Node *addNode(int data){
             Node *newNode = new Node;
             newNode->data = data;
@@ -20,6 +22,7 @@ class BST{
             return newNode;
         }
 
+        //FUNGSI INSERT DATA SECARA BST
         Node *insertData(Node *anode, int data){
             if(anode == NULL){
                 return addNode(data);
@@ -53,7 +56,7 @@ class BST{
 class HashMap{
     private:
         BST bst;
-
+        //FUNGSI MENCARI NILAI PRIMA TERKECIL KURANG DARI N
         int getBigestPrime(int val){
             bool isPrime = false;
             int bigestPrime = -1;
@@ -74,6 +77,7 @@ class HashMap{
         }
 
     public:
+        //FUNGSI MEMASUKAN DATA KE DALAM TABLE HASH, JIKA INDEX SUDAH TERISI MAKA AKAN DI LINK DENGAN ATURAN BST
         void hashing(int data, Node *database[]){
             int p = getBigestPrime(NUM_OF_INDEX);
             int index = data % p;
