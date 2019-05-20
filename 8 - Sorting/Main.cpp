@@ -4,6 +4,8 @@
 #include <ctime>
 using namespace std; 
 
+int counter = 0;
+
 //CLASS MERGE SORT
 class MergeSort{
     private:
@@ -24,6 +26,7 @@ class MergeSort{
             j = 0; 
             k = l;
             while (i < n1 && j < n2){ 
+                counter++;
                 if (L[i] <= R[j]) { 
                     arr[k] = L[i]; 
                     i++; 
@@ -218,8 +221,10 @@ int main() {
         data[i] = val;
     }
 
-    qs.quickSort(data, 0, n-1);
-    printArray(data, n, "quick : ");
+    ms.mergeSort(data, 0, n-1);
+    //qs.quickSort(data, 0, n-1);
+    printArray(data, n, "Hasil : ");
+    cout << "Jumlah Perbandingan : " << counter << endl;
 
     getch(); //delete this line if you use linux
 } 
